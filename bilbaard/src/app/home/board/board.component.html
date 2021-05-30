@@ -6,7 +6,7 @@
     <div class="d-flex w-100 justify-content-between">
       <a class="navbar-brand  " href="#">Posts</a>
       <div class="d-flex">
-        <input class="form-control mr-2" type="search" placeholder="Post text" [(ngModel)]="postText">
+        <textarea class="form-control mr-2" type="search" placeholder="Post html" [(ngModel)]="postText"></textarea>
         <button class="btn btn-outline-success" (click)="newPost()">Create Post</button>
       </div>
     </div>
@@ -23,7 +23,9 @@
         <h5 class="card-title">
           Post
         </h5>
-        <p class="card-text mx-4">{{post?.text}}</p>
+        <p class="card-text mx-4" [innerHTML]="post?.text">
+
+        </p>
         <div class="d-flex justify-content-end">
           Created By John arthur
         </div>

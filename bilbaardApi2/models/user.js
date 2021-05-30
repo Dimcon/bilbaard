@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
-// Create a user Schema
+// Mongoose User schema
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
@@ -24,7 +24,11 @@ const UserSchema = mongoose.Schema({
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
-// Create two basic functions in this file, get user by id and by username 
+// This file acts as a user service.
+//  We abstract the addUser and compare password functions which
+// use bcrypt
+
+// https://www.npmjs.com/package/bcrypt
 
 module.exports.getUserById = function(id, callback) {
     User.findById(id, callback);

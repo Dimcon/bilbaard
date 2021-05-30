@@ -11,7 +11,9 @@ const config = require("../config/database");
 const User = require("../models/user");
 const Post = require("../models/post");
 
-// Register
+
+// Routes to handle posts. GET and POST
+// Submit new psots
 router.post("/newPost",
     passport.authenticate("jwt", { session: false }),
     (req, res, next) => {
@@ -31,7 +33,7 @@ router.post("/newPost",
   });
 });
 
-// Profile
+// Get posts
 router.get(
   "/posts",
   passport.authenticate("jwt", { session: false }),

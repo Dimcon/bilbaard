@@ -8,7 +8,8 @@ const config = require("../config/database");
 
 const User = require("../models/user");
 
-// Register
+// Authentication routes
+// Register a new user
 router.post("/register", (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
@@ -26,7 +27,7 @@ router.post("/register", (req, res, next) => {
   });
 });
 
-// Authenticate
+// login/authenticate
 router.post("/authenticate", (req, res, next) => {
   // res.send('AUTHENTICATE');
   const username = req.body.username;
@@ -50,6 +51,8 @@ router.post("/authenticate", (req, res, next) => {
           username: user.username,
           email: user.email
         }
+        // Use the JWT to create a valid JWT token
+        // https://www.npmjs.com/package/jwt
         const token = jwt.sign(jsonUser, config.secret, {
           expiresIn: 604800
         });
@@ -66,7 +69,7 @@ router.post("/authenticate", (req, res, next) => {
   });
 });
 
-// Profile
+// Users' profile route.
 router.get(
   "/profile",
   passport.authenticate("jwt", { session: false }),

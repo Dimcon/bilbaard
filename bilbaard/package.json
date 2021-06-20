@@ -3,22 +3,30 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng start",
+    "prestart": "ng build --prod && ngc",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev:ssr": "ng run bilbaard:serve-ssr",
+    "serve:ssr": "node dist/bilbaard/server/main.js",
+    "build:ssr": "ng build && ng run bilbaard:server",
+    "prerender": "ng run bilbaard:prerender"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.0.0",
-    "@angular/common": "~12.0.0",
+    "@angular/animations": "^12.0.0",
+    "@angular/common": "^12.0.0",
     "@angular/compiler": "~12.0.0",
     "@angular/core": "~12.0.0",
     "@angular/forms": "~12.0.0",
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
+    "@angular/platform-server": "^12.0.5",
     "@angular/router": "~12.0.0",
+    "@nguniversal/express-engine": "^12.0.0",
     "bootstrap": "~5.0.1",
+    "express": "^4.17.1",
     "moment": "~2.29.1",
     "ngx-bootstrap": "~6.2.0",
     "rxjs": "~6.6.0",
@@ -26,9 +34,11 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.0.0",
+    "@angular-devkit/build-angular": "^12.0.0",
     "@angular/cli": "~12.0.0",
     "@angular/compiler-cli": "~12.0.0",
+    "@nguniversal/builders": "^12.0.0",
+    "@types/express": "^4.17.12",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.7.0",
@@ -37,6 +47,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ts-node": "^10.0.0",
     "typescript": "~4.2.3"
   }
 }

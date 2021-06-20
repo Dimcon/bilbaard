@@ -24,6 +24,15 @@ export class UtilityService {
       })
   }
 
+
+  async deletePost(postId: string) {
+    await this.httpService.post(baseUrl + '/posts/deletePost',
+      {
+        userId: this.user.id,
+        postId: postId
+      })
+  }
+
   async getPosts() {
     const result = await this.httpService.get(baseUrl + '/posts/posts')
     return result

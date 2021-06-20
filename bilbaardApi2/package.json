@@ -1,5 +1,5 @@
 {
-  "name": "BilbaardAPI",
+  "name": "bilbaard-api",
   "version": "1.0.0",
   "description": "Bilbaard's accompanying API",
   "main": "app.js",
@@ -11,14 +11,20 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parser": "*",
+    "cookie-parser": "^1.4.5",
     "cors": "*",
+    "csurf": "^1.11.0",
     "express": "*",
+    "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
     "jsonwebtoken": "*",
     "jwthelper": "0.0.4",
     "mongoose": "*",
+    "morgan": "^1.10.0",
     "npx": "^10.2.2",
     "passport": "*",
-    "passport-jwt": "*"
+    "passport-jwt": "*",
+    "session": "^0.1.0"
   },
   "author": "Daimon Sewell",
   "license": "ISC",

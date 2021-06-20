@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   username = ''
   password = ''
-  error = null;
+  error: any = null;
 
   async ngOnInit() {
     // if(this.authService.isLoggedIn()) {
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   async login(): Promise<void> {
     this.error = null;
     try {
+
       await this.authService.login(this.username, this.password)
       await this.router.navigate(['board'])
     } catch (err) {

@@ -7,7 +7,7 @@ import { RegisterComponent } from './home/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
 import {HttpService} from "./services/http-service.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import { BoardComponent } from './home/board/board.component';
 import {CommonModule} from "@angular/common";
 
@@ -19,11 +19,16 @@ import {CommonModule} from "@angular/common";
     BoardComponent,
   ],
   imports: [
+    BrowserModule.withServerTransition({appId: 'angular-universal-demo'}),
     CommonModule,
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-    HttpClientModule
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-CSRF-TOKEN'
+    }),
     ],
   exports: [CommonModule, BrowserModule],
   providers: [HttpService, HttpClient],

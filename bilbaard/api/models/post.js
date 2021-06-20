@@ -26,6 +26,16 @@ module.exports.getPosts = function(callback) {
     Post.find({}, callback);
 }
 
-module.exports.addPost = function(newPost, callback){
+module.exports.addPost = function(newPost, callback) {
     newPost.save(callback)
+}
+
+module.exports.deletePost = function(postId, userId, callback) {
+    Post.findById(postId, function (err, post) {
+        if (userId === post.userId) {
+            Post.deleteOne(post, callback)
+        } else {
+            callback("Only the owner can delete a post.")
+        }
+    })
 }

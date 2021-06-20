@@ -11,6 +11,10 @@
       </div>
     </div>
   </nav>
+  <span *ngIf="error" class="alert alert-danger">
+    {{error}}
+  </span>
+
 
 
   <div class="d-flex flex-wrap col-lg-10 justify-content-center" style="
@@ -21,13 +25,14 @@
     <div class="card shadow m-2">
       <div class="card-body">
         <h5 class="card-title">
-          Post
+          <span>Post </span>
+          <hr>
+          <button class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete Post</button>
         </h5>
         <p class="card-text mx-4" [innerHTML]="post?.text">
 
         </p>
         <div class="d-flex justify-content-end">
-          Created By John arthur
         </div>
       </div>
     </div>

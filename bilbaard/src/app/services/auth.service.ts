@@ -49,7 +49,24 @@ export class AuthService {
       name: username,
       email: userid,
       username: userid,
-      password: pass
+      password: pass,
+      role: 'user'
+    })
+    if (result.success) {
+      await this.login(userid, pass)
+    } else {
+      throw "Credentials are bad."
+    }
+  }
+
+
+  async registerAsAdmin(username: string, userid: string, pass: string) {
+    const result = await this.httpService.post(`${baseUrl}/auth/register`,{
+      name: username,
+      email: userid,
+      username: userid,
+      password: pass,
+      role: 'admin'
     })
     if (result.success) {
       await this.login(userid, pass)

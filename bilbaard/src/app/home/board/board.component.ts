@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
       // @ts-ignore
       this.posts = this.posts.posts.reverse()
     } catch (err) {
-      this.error = err
+      this.error = err.error
     }
   }
 
@@ -44,7 +44,20 @@ export class BoardComponent implements OnInit {
       // @ts-ignore
       this.posts = this.posts.posts.reverse()
     } catch (err) {
-      this.error = err
+      this.error = err.error
+    }
+  }
+
+
+  async deletePost(postId: string) {
+    this.error = null
+    try {
+      await this.utilityService.deletePost(postId)
+      this.posts = await this.utilityService.getPosts() as any
+      // @ts-ignore
+      this.posts = this.posts.posts.reverse()
+    } catch (err) {
+      this.error = err.error
     }
   }
 

@@ -42,28 +42,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'THIS IS ALL A SIMULATION?', cookie: { maxAge: 60000 }}))
 app.use(bodyParser.json({ extended: false }))
 app.use(cookieParser());
-// app.use(csurf({ cookie: true }));
-// // const csrfProtection = csurf({
-// //     sessionKey: 'THIS IS ALL A SIMULATION?',
-// //     cookie: true
-// // })
-//
-//
-//
-//
-// app.use(function(req, res, next) {
-//     const xsrf = req.csrfToken()
-//     res.cookie("XSRF-TOKEN", xsrf);
-//     res.setHeader("XSRF-TOKEN", xsrf)
-//     res.locals.csrfToken = xsrf;
-//     return next();
-// });
-// app.get('/', (req, res) => {
-//     const cookie = res.getHeader("XSRF-TOKEN")
-//     let origheader =  res.getHeader("set-cookie")
-//     let header = res.getHeader("set-cookie")[0].split("=")[1].split(";")[0]
-//     res.json({ success: true, msg: "Got CSRF", cookie: cookie, csrfData: header });
-// });
+app.use(csurf({ cookie: true }));
+
+
+app.use(function(req, res, next) {
+    const xsrf = req.csrfToken()
+    res.cookie("XSRF-TOKEN", xsrf);
+    res.setHeader("XSRF-TOKEN", xsrf)
+    res.locals.csrfToken = xsrf;
+    return next();
+});
+// This view is important. Allows angular to do a GET request where it can get the CSRF from.
+app.get('/api/csrf', (req, res) => {
+    res.json({ success: true, msg: "Hi" });
+});
 
 // Passport to use the JWT authentication methods.
 app.use(passport.initialize());
@@ -89,8 +81,8 @@ const users = require('./api/routes/users');
 const posts = require('./api/routes/psots');
 
 // Include our base route handlers
-app.use('/auth', users);
-app.use('/posts', posts);
+app.use('/api/auth', users);
+app.use('/api/posts', posts);
 
 const port = 3000;
 
@@ -105,9 +97,13 @@ mongoose.connection.on('error', (err) => {
     console.log('Database error ' + err);
 });
 
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-}, app).listen(port, () => {
+// https.createServer({
+//     key: fs.readFileSync('server.key'),
+//     cert: fs.readFileSync('server.cert')
+// }, app).listen(port, () => {
+//     console.log('Server started on port: ' + port);
+// });
+
+app.listen(port, () => {
     console.log('Server started on port: ' + port);
 });

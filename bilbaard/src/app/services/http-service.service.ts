@@ -89,7 +89,7 @@ export class HttpService {
   public async doCSRFGet() {
     if (!this.didCSRFRequest) {
       try {
-        const response = (await this.httpClient.get(`${baseUrl}/`).toPromise()) as any;
+        const response = (await this.httpClient.get(`${baseUrl}/csrf`).toPromise()) as any;
         this.csrfToken = response.cookie
         this.csrfData = response.csrfData
         console.log(response)

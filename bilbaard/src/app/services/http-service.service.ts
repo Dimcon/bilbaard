@@ -116,6 +116,9 @@ export class HttpService {
       headers = headers.append('X-CSRF-TOKEN', this.csrfToken);
     }
 
+    headers = headers.append('Accept', 'application/json')
+    headers = headers.append('rejectUnauthorized', 'false')
+
     return { headers };
   }
 }
